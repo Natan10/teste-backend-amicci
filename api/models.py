@@ -4,7 +4,6 @@ class Category(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
 
-
 # Varejista
 class Retailer(models.Model):
     name = models.CharField(max_length=165)
@@ -12,7 +11,7 @@ class Retailer(models.Model):
 # Fornecedor
 class Vendor(models.Model):
     name = models.CharField(max_length=165)
-    retailer = models.ForeignKey(Retailer, on_delete=models.SET_NULL, null=True)
+    retailer = models.ForeignKey(Retailer, on_delete=models.SET_NULL, null=True, related_name='vendors')
 
 
 class Briefing(models.Model):
