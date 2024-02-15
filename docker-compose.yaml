@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  api:
+    build: .
+    container_name: api_amicci
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_NAME=amicci
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DJANGO_DEBUG=True # Set to False in production
+
+  db:
+    image: postgres:latest
+    container_name: db_amicci
+    environment:
+      - POSTGRES_DB=amicci
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
