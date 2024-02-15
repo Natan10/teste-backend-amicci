@@ -8,12 +8,12 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'description']
     
     def validate_name(self, name):
-        if not name:
+        if not name or name == '':
             raise serializers.ValidationError('Insira um nome valido')
         return name
     
     def validate_description(self, description):
-        if not description:
+        if not description or description == '':
             raise serializers.ValidationError('Insira uma descricao valida')
         return description
 
